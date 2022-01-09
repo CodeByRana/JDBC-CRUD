@@ -7,14 +7,16 @@ public class EmployeePayrollService {
 
         EmployeePayrollService service = new EmployeePayrollService();
         //service.retrieveData();
-        service.updateSalary("Terrisa", 3000000);
+        service.updateSalary("Terrisa", 4500000);
 
     }
     private void updateSalary(String name, int basic_pay) {
-        repository.updateSalary(name, basic_pay);
+        //repository.updateSalary(name.toLowerCase(), basic_pay);
+        repository.updateSalaryUsingPreparedStatement(name.toLowerCase(), basic_pay);
     }
 
     private void retrieveData() {
         System.out.println(repository.retrieveData());
     }
+
 }

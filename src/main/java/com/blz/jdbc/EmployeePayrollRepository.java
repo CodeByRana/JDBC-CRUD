@@ -59,9 +59,24 @@ public class EmployeePayrollRepository {
             String sqlQuery = String.format("update employee_payroll set basic_pay = %d where name = '%s'",basic_pay,name);
             int result = statement.executeUpdate(sqlQuery);
             if (result >= 1){
-                System.out.println("BasicPay Updated");
+                System.out.println("BasicPay salary Updated");
             }
         }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateSalaryUsingPreparedStatement(String name, int basic_pay) {
+        try (Connection connection = getConnection()){
+            String query = "update employee_payroll set basic_pay=? where name =?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1,basic_pay);
+            preparedStatement.setString(2,name);
+            int result = preparedStatement.executeUpdate();
+            if (result >= 1) {
+                System.out.println("BasicPay salary Updated");
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
