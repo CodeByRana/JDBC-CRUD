@@ -9,7 +9,7 @@ public class EmployeeInfo {
     private int id;
     private String name;
     private char gender;
-    private LocalDate startDate;
+    private Date startDate;
     private long phone;
     private String address;
 
@@ -37,11 +37,11 @@ public class EmployeeInfo {
         this.gender = gender;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
