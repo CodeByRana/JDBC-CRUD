@@ -80,4 +80,34 @@ public class EmployeePayrollRepository {
             e.printStackTrace();
         }
     }
+
+    public List<EmployeeInfo> retrieveDataUsingPreparedStatement() {
+        //Collection list used for find data
+        List<EmployeeInfo> employeeInfos = new ArrayList<>();
+
+        try (Connection connection = getConnection()){
+            String SQLquery = "select * from employee_payroll where name ='Terrisa' ";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLquery);
+//            preparedStatement.setInt(1,basic_pay);
+//            preparedStatement.setString(2,name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            //Iterator Data while loop through from employee_payroll table
+            while (resultSet.next()){
+                //Called EmployeeInfo Object
+                EmployeeInfo info = new EmployeeInfo();
+
+                info.setId(resultSet.getInt("id"));
+                info.setName(resultSet.getString("name"));
+//                info.setGender(resultSet.getString("gender").charAt(0));
+                info.setStartDate(resultSet.getDate("startDate"));
+                info.setAddress(resultSet.getString("address"));
+                info.setPhone(resultSet.getLong("phone"));
+                employeeInfos.add(info);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeeInfos;
+    }
 }
