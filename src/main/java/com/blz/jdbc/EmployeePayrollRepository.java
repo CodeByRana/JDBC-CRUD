@@ -6,6 +6,7 @@ import java.util.List;
 
 public class EmployeePayrollRepository {
 
+    //Create JDBC connection for connect db data
     private Connection getConnection() {
 
         Connection connection = null;
@@ -21,18 +22,20 @@ public class EmployeePayrollRepository {
         }
         return connection;
     }
+    //Retrieve Data method statement
     public List<EmployeeInfo> retrieveData() {
-
+        //Collection list used for find data
         List<EmployeeInfo> employeeInfos = new ArrayList<>();
 
         try (Connection connection = getConnection()) {
-            // Step 3
+
             Statement statement = connection.createStatement();
             String sqlQuery = "select * from employee_payroll";
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
+            //Iterator Data while loop through from employee_payroll table
             while (resultSet.next()) {
-
+                //Called EmployeeInfo Object
                 EmployeeInfo info = new EmployeeInfo();
 
                 info.setId(resultSet.getInt("id"));
