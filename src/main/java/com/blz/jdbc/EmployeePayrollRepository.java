@@ -88,8 +88,6 @@ public class EmployeePayrollRepository {
         try (Connection connection = getConnection()){
             String SQLquery = "select * from employee_payroll where name ='Terrisa' ";
             PreparedStatement preparedStatement = connection.prepareStatement(SQLquery);
-//            preparedStatement.setInt(1,basic_pay);
-//            preparedStatement.setString(2,name);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             //Iterator Data while loop through from employee_payroll table
