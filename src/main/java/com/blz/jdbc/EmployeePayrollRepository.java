@@ -41,7 +41,7 @@ public class EmployeePayrollRepository {
                 info.setId(resultSet.getInt("id"));
                 info.setName(resultSet.getString("name"));
 //                info.setGender(resultSet.getString("gender").charAt(0));
-                info.setStartDate(resultSet.getDate("startDate").toLocalDate());
+                info.setStartDate(resultSet.getDate("startDate"));
                 info.setAddress(resultSet.getString("address"));
                 info.setPhone(resultSet.getLong("phone"));
                 employeeInfos.add(info);
