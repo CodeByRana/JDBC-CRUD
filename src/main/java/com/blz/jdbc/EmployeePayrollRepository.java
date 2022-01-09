@@ -30,7 +30,7 @@ public class EmployeePayrollRepository {
         try (Connection connection = getConnection()) {
 
             Statement statement = connection.createStatement();
-            String sqlQuery = "select * from employee_payroll";
+            String sqlQuery = "select * from employee";
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
             //Iterator Data while loop through from employee_payroll table
@@ -50,5 +50,19 @@ public class EmployeePayrollRepository {
             e.printStackTrace();
         }
         return employeeInfos;
+    }
+
+    public void updateSalary(String name, int basic_pay) {
+        try(Connection connection = getConnection()){
+            Statement statement = connection.createStatement();
+            //String sqlQuery = "update employee_payroll set salary = " +salary +" where name = " +name+ "'";
+            String sqlQuery = String.format("update employee_payroll set basic_pay = %d where name = '%s'",basic_pay,name);
+            int result = statement.executeUpdate(sqlQuery);
+            if (result >= 1){
+                System.out.println("BasicPay Updated");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
