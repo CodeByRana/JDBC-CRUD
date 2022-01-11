@@ -11,6 +11,7 @@ public class EmployeeInfo {
     private Date startDate;
     private long phone;
     private String address;
+    private int basic_pay;
 
     public int getId() {
         return id;
@@ -60,6 +61,14 @@ public class EmployeeInfo {
         this.address = address;
     }
 
+    public int getBasic_pay() {
+        return basic_pay;
+    }
+
+    public void setBasic_pay(int basic_pay) {
+        this.basic_pay = basic_pay;
+    }
+
     @Override
     public String toString() {
         return "EmployeeInfo{" +
@@ -69,6 +78,7 @@ public class EmployeeInfo {
                 ", startDate=" + startDate +
                 ", phone=" + phone +
                 ", address='" + address + '\'' +
+                ", basic_pay=" + basic_pay +
                 '}';
     }
 }

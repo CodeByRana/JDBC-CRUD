@@ -1,5 +1,7 @@
 package com.blz.jdbc;
 
+import java.sql.Date;
+
 public class EmployeePayrollService {
     EmployeePayrollRepository repository = new EmployeePayrollRepository();
 
@@ -7,9 +9,13 @@ public class EmployeePayrollService {
 
         EmployeePayrollService service = new EmployeePayrollService();
         //service.retrieveData();
-        service.retrieveDataUsingPreparedStatement();
+        //service.retrieveDataUsingPreparedStatement();
         //service.updateSalary("Terrisa", 4500000);
+        service.retrieveDataOfAggregateFunction();
+    }
 
+    private void retrieveDataOfAggregateFunction() {
+        System.out.println(repository.retrieveDataOfAggregateFunction());;
     }
 
     private void retrieveDataUsingPreparedStatement() {

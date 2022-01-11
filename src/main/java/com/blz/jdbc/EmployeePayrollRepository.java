@@ -40,7 +40,7 @@ public class EmployeePayrollRepository {
 
                 info.setId(resultSet.getInt("id"));
                 info.setName(resultSet.getString("name"));
-//                info.setGender(resultSet.getString("gender").charAt(0));
+//              info.setGender(resultSet.getString("gender").charAt(0));
                 info.setStartDate(resultSet.getDate("startDate"));
                 info.setAddress(resultSet.getString("address"));
                 info.setPhone(resultSet.getLong("phone"));
@@ -52,6 +52,7 @@ public class EmployeePayrollRepository {
         return employeeInfos;
     }
 
+    //Using normal statement to update query
     public void updateSalary(String name, int basic_pay) {
         try(Connection connection = getConnection()){
             Statement statement = connection.createStatement();
@@ -66,6 +67,7 @@ public class EmployeePayrollRepository {
         }
     }
 
+    //Update data using prepared statement
     public void updateSalaryUsingPreparedStatement(String name, int basic_pay) {
         try (Connection connection = getConnection()){
             String query = "update employee_payroll set basic_pay=? where name =?";
@@ -81,6 +83,7 @@ public class EmployeePayrollRepository {
         }
     }
 
+    //Using Prepared statement
     public List<EmployeeInfo> retrieveDataUsingPreparedStatement() {
         //Collection list used for find data
         List<EmployeeInfo> employeeInfos = new ArrayList<>();
@@ -88,8 +91,6 @@ public class EmployeePayrollRepository {
         try (Connection connection = getConnection()){
             String SQLquery = "select * from employee_payroll where name ='Terrisa' ";
             PreparedStatement preparedStatement = connection.prepareStatement(SQLquery);
-//            preparedStatement.setInt(1,basic_pay);
-//            preparedStatement.setString(2,name);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             //Iterator Data while loop through from employee_payroll table
@@ -99,12 +100,33 @@ public class EmployeePayrollRepository {
 
                 info.setId(resultSet.getInt("id"));
                 info.setName(resultSet.getString("name"));
-//                info.setGender(resultSet.getString("gender").charAt(0));
+//              info.setGender(resultSet.getString("gender").charAt(0));
                 info.setStartDate(resultSet.getDate("startDate"));
                 info.setAddress(resultSet.getString("address"));
                 info.setPhone(resultSet.getLong("phone"));
                 employeeInfos.add(info);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return employeeInfos;
+    }
+
+    //Using aggregate method
+    public List<EmployeeInfo> retrieveDataOfAggregateFunction() {
+        //Collection list used for find data
+        List<EmployeeInfo> employeeInfos = new ArrayList<>();
+
+        try (Connection connection = getConnection()){
+            String SQLquery = "select sum(basic_pay), avg(basic_pay) as salary from employee_payroll where gender = 'M'";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLquery);
+            ResultSet resultSet = preparedStatement.executeQuery(SQLquery);
+
+            while(resultSet.next()){
+                System.out.println(resultSet.getInt(1));
+                System.out.println(resultSet.getInt(2));
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
